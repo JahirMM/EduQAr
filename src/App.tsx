@@ -1,15 +1,16 @@
+import { Routes, Route } from "react-router-dom";
+import { RootLayout } from "./app/shared/layouts/RootLayout";
+import { Hero } from "./app/home/components/hero";
 import "./App.css";
-import { Hero } from "./app/home/components/Hero";
-import { Header } from "./app/shared/components/Header";
 
 function App() {
   return (
-    <>
-      <Header />
-      <Hero />
-      <main>main</main>
-      <footer>footer</footer>
-    </>
+    <Routes>
+      <Route element={<RootLayout />}>
+        <Route index element={<Hero />} />
+        {/* Aquí irán las demás rutas */}
+      </Route>
+    </Routes>
   );
 }
 
