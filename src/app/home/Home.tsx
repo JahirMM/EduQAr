@@ -1,6 +1,8 @@
 import { Hero } from "./components/Hero";
 import { WhatYouWillLearn } from "./components/WhatYouWillLearn";
 import { SloganBanner } from "./components/SloganBanner";
+import { AboutUs } from "./components/AboutUs";
+import { ContactUs } from "./components/ContactUs";
 
 export function Home() {
   return (
@@ -8,6 +10,8 @@ export function Home() {
       <Hero />
       <WhatYouWillLearn />
       <SloganBanner />
+      <AboutUs />
+      <ContactUs />
     </main>
   );
 }
