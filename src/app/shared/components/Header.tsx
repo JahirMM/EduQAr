@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   MenuIcon,
@@ -30,9 +30,23 @@ type AccordionSection = "learn" | "recursos" | null;
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expanded, setExpanded] = useState<AccordionSection>(null);
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
   const toggleSection = (section: AccordionSection) =>
     setExpanded((prev) => (prev === section ? null : section));
+
+  // Cerrar menú móvil al hacer click fuera del panel móvil
+  useEffect(() => {
+    if (!mobileOpen) return;
+    function handlePointerDown(e: PointerEvent) {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target as Node)) {
+        setMobileOpen(false);
+      }
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [mobileOpen]);
 
   return (
     <>
@@ -85,6 +99,7 @@ export function Header() {
 
         {/* Mobile menu — slide down */}
         <div
+          ref={mobileMenuRef}
           className="md:hidden overflow-hidden transition-all duration-300 ease-in-out"
           style={{
             maxHeight: mobileOpen ? "600px" : "0px",
@@ -190,4 +205,7 @@ export function Header() {
       <div className="h-[60px] md:h-[60px]" />
     </>
   );
+
 }
+
+
