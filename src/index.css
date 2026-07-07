@@ -198,4 +198,11 @@ body {
   background: #100E1A !important;
 }
 
+/* Evita que el borde del popup sobresalga durante la animación de cierre */
+[data-slot="navigation-menu-positioner"] {
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+
+
 

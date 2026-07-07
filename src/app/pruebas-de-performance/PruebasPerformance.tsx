@@ -1,12 +1,15 @@
 import { TopicPageLayout } from "../shared/components/TopicPageLayout";
-import { pruebasPerformanceData } from "./data/pruebasPerformance";
+import { ToolsSection } from "../shared/components/ToolsSection";
+import { pruebasPerformanceData, pruebasPerformanceSections } from "./data/pruebasPerformance";
 
 export function PruebasPerformance() {
   return (
     <TopicPageLayout
       title={pruebasPerformanceData.title}
       description={pruebasPerformanceData.description}
-      cta={pruebasPerformanceData.cta}
-    />
+      wideChildren
+    >
+      <ToolsSection sections={pruebasPerformanceSections} />
+    </TopicPageLayout>
   );
 }
