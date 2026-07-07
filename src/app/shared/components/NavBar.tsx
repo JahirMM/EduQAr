@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState, type MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ClipboardCheckIcon,
   NetworkIcon,
@@ -31,14 +32,27 @@ const learnIcons: Record<string, LucideIcon> = {
 };
 
 export function NavBar() {
+  const navigate = useNavigate();
+  // Controla qué menú está abierto; string vacío = todos cerrados
+  const [openMenu, setOpenMenu] = useState<string>("");
+
+  function handleNavClick(href: string, event?: MouseEvent<HTMLButtonElement>) {
+    event?.currentTarget.blur();
+    setOpenMenu(""); // cierra el dropdown
+    navigate(href);
+  }
+
   return (
-    <NavigationMenu>
+    <NavigationMenu
+      value={openMenu}
+      onValueChange={setOpenMenu}
+    >
       <NavigationMenuList className="space-x-1 text-white">
         {/* ¿Qué aprenderás? */}
-        <NavigationMenuItem>
+        <NavigationMenuItem value="learn">
           <NavigationMenuTrigger>¿Qué aprenderás?</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <div className="w-[520px] p-4" style={{ background: "#100E1A" }}>
+            <div className="w-[520px] p-4">
               <p className="text-xs font-semibold uppercase tracking-widest text-purple-400 mb-3 px-1">
                 Áreas de aprendizaje
               </p>
@@ -47,26 +61,22 @@ export function NavBar() {
                   const Icon = learnIcons[item.title] ?? ClipboardCheckIcon;
                   return (
                     <li key={item.title}>
-                      <NavigationMenuLink
-                        render={
-                          <Link
-                            to={item.href}
-                            className="group flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/5"
-                          >
-                            <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-purple-600/15 text-purple-400 group-hover:bg-purple-600/25 transition-colors">
-                              <Icon className="size-3.5" />
-                            </span>
-                            <div>
-                              <div className="text-sm font-medium text-white/90 leading-snug">
-                                {item.title}
-                              </div>
-                              <div className="text-xs text-white/40 mt-0.5 leading-snug">
-                                {item.description}
-                              </div>
-                            </div>
-                          </Link>
-                        }
-                      />
+                      <button
+                        onClick={(event) => handleNavClick(item.href, event)}
+                        className="group flex w-full items-start gap-3 rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-white/5"
+                      >
+                        <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-purple-600/15 text-purple-400 group-hover:bg-purple-600/25 transition-colors">
+                          <Icon className="size-3.5" />
+                        </span>
+                        <div>
+                          <div className="text-sm font-medium text-white/90 leading-snug">
+                            {item.title}
+                          </div>
+                          <div className="text-xs text-white/40 mt-0.5 leading-snug">
+                            {item.description}
+                          </div>
+                        </div>
+                      </button>
                     </li>
                   );
                 })}
@@ -79,15 +89,18 @@ export function NavBar() {
         <NavigationMenuItem>
           <NavigationMenuLink
             className={navigationMenuTriggerStyle()}
-            render={<Link to="#">Simuladores</Link>}
-          />
+            onClick={() => handleNavClick("#")}
+            style={{ cursor: "pointer" }}
+          >
+            Simuladores
+          </NavigationMenuLink>
         </NavigationMenuItem>
 
         {/* Recursos */}
-        <NavigationMenuItem>
+        <NavigationMenuItem value="recursos">
           <NavigationMenuTrigger>Recursos</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <div className="w-[220px] p-3" style={{ background: "#100E1A" }}>
+            <div className="w-[220px] p-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-purple-400 mb-2 px-1">
                 Recursos
               </p>
@@ -96,17 +109,13 @@ export function NavBar() {
                   const Icon = item.icon;
                   return (
                     <li key={item.title}>
-                      <NavigationMenuLink
-                        render={
-                          <Link
-                            to={item.href}
-                            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-white/75 hover:bg-white/5 hover:text-white transition-colors"
-                          >
-                            <Icon className="size-4 text-purple-400 shrink-0" />
-                            {item.title}
-                          </Link>
-                        }
-                      />
+                      <button
+                        onClick={(event) => handleNavClick(item.href, event)}
+                        className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-white/75 hover:bg-white/5 hover:text-white transition-colors"
+                      >
+                        <Icon className="size-4 text-purple-400 shrink-0" />
+                        {item.title}
+                      </button>
                     </li>
                   );
                 })}
@@ -119,8 +128,11 @@ export function NavBar() {
         <NavigationMenuItem>
           <NavigationMenuLink
             className={navigationMenuTriggerStyle()}
-            render={<Link to="#">Contacto</Link>}
-          />
+            onClick={() => handleNavClick("#")}
+            style={{ cursor: "pointer" }}
+          >
+            Contacto
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
