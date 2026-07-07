@@ -4,7 +4,6 @@ import { ArrowRightIcon } from "lucide-react";
 export function Hero() {
   return (
     <section className="relative min-h-[calc(100vh-60px)] flex items-center overflow-hidden">
-      {/* Ambient glow */}
       <div
         className="pointer-events-none absolute -top-32 left-1/4 h-96 w-96 rounded-full opacity-20 blur-3xl"
         style={{
@@ -19,31 +18,18 @@ export function Hero() {
       />
 
       <div className="mx-auto w-full max-w-7xl px-4 md:px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        {/* ── Left: copy ── */}
         <div className="flex flex-col gap-6">
-          {/* Badge pill */}
-          <div className="inline-flex w-fit items-center gap-2">
-            <span className="h-1.5 w-1.5 animate-pulse" />
-            <span className="text-xs font-medium text-purple-300">
-              EduQAr LATAM · Nueva comunidad QA
-            </span>
-            <ArrowRightIcon className="size-3 text-purple-400" />
-          </div>
-
-          {/* Headline */}
           <div>
             <h1 className="text-4xl sm:text-5xl md:text-[3.5rem] font-bold leading-[1.1] tracking-tight text-white">
-              SQCorE:
+              EduQAr LATAM:
               <br />
-              <span className="text-white/40">Núcleo de Excelencia</span>
+              <span className="text-white/70">Potenciando profesionales</span>
               <br />
               <span className="bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
-                en Calidad de Software
+                en el área QA
               </span>
             </h1>
           </div>
-
-          {/* Accent line */}
           <p className="text-base text-purple-400 font-medium">
             Impulsando la excelencia en pruebas de software.
           </p>
